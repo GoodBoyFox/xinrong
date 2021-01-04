@@ -25,4 +25,5 @@ public class Basic {
     private String title;
     private String copyright;
     private String record_no;
+    private String phones;
 }

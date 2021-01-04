@@ -35,4 +35,6 @@ public interface ContentDao {
     List<Content> getAllLiuYanSql();
 
     List<Column> selectAllTwo(Integer column_id);
+
+    List<Content> selectLeaveByIp(String leaveIp);
 }

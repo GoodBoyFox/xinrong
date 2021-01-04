@@ -4,8 +4,8 @@
 
     <!--插入内容-->
     <insert id="insertContent" parameterType="com.backstage.management.entity.Content">
-            insert into content(title,column_id,`column_name`,views,releasedate,num,abbreviation_url,details,atlas,`name`,phone,del)
-            values (#{title},#{column_id},#{column_name},#{views},#{releasedate},0,#{abbreviation_url},#{details},#{atlas},#{name},#{phone},1)
+            insert into content(title,title_sencond,column_id,`column_name`,`level`,views,releasedate,num,abbreviation_url,details,atlas,`name`,phone,leave_ip,del)
+            values (#{title},#{title_sencond},#{column_id},#{column_name},#{level},#{views},#{releasedate},0,#{abbreviation_url},#{details},#{atlas},#{name},#{phone},#{leave_ip},1)
     </insert>
 
     <!--更新内容-->
@@ -15,11 +15,17 @@
             <if test="title != null and title != ''">
                 title = #{title},
             </if>
+            <if test="title_sencond != null and title_sencond != ''">
+                title_sencond = #{title_sencond},
+            </if>
             <if test="column_id != null and column_id != ''">
                 column_id = #{column_id},
             </if>
             <if test="column_name != null and column_name != ''">
                 `column_name` = #{column_name},
+            </if>
+            <if test="level != null and level != ''">
+                `level` = #{level},
             </if>
             <if test="views != null and views != ''">
                 views = #{views},
@@ -82,5 +88,10 @@
     <!--查询二级-->
     <select id="selectAllTwo" parameterType="Integer" resultType="com.backstage.management.entity.Column">
         select * from `column` where fid = #{column_id}
+    </select>
+
+    <!--根据IP查询留言-->
+    <select id="selectLeaveByIp" parameterType="String" resultType="com.backstage.management.entity.Content">
+        select * from content where leave_ip=#{leaveIp}
     </select>
 </mapper>

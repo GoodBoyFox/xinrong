@@ -2,6 +2,7 @@ package com.backstage.management.service.Impl;
 
 
 import com.backstage.management.dao.ArticleDao;
+import com.backstage.management.dao.ContentDao;
 import com.backstage.management.entity.Column;
 import com.backstage.management.service.ArticleService;
 import com.backstage.management.util.Page;
@@ -28,6 +29,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     ArticleDao articleDao;
+
+    @Autowired
+    ContentDao contentDao;
 
     @Override
     public Page<Column> getAllColumn(Integer CurrentPage,Integer all) {
@@ -103,5 +107,13 @@ public class ArticleServiceImpl implements ArticleService {
             column1.setList(list3);
         }
         return list1;
+    }
+
+    @Override
+    public List<Column> selectSecondColumnByOne(Integer columnOne) {
+        //查询当前栏目下的所有二级
+        List<Column> list = contentDao.selectAllTwo(columnOne);
+
+        return list;
     }
 }

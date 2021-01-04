@@ -30,4 +30,6 @@ public interface ArticleService {
     List<Column> getAllOneColumn();
 
     List<Column> getXiaoAllColumn();
+
+    List<Column> selectSecondColumnByOne(Integer columnOne);
 }

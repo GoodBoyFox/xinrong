@@ -50,8 +50,9 @@ public class CommonController {
     /**
      * 修改基本信息
      * */
-    @PostMapping("/CommonController/updateBasic")
-    public JSON updateBasic(@ModelAttribute Basic basic){
+    @RequestMapping(value = "/CommonController/updateBasic",method = RequestMethod.POST)
+    public JSON updateBasic(@RequestBody Basic basic){
+        System.out.println("basic》》》"+basic);
         int i = commonService.updateBasic(basic);
         if (i>0){
             return ResultData.getResponseData(null, ResultCode.UPDATE_SUCCESS);
@@ -64,9 +65,9 @@ public class CommonController {
     /**
      * 查找轮播   ----------------------------------------------------------------------------------------小程序公用
      * */
-    @GetMapping("/CommonController/findAllRotation")
-    public JSON findAllRotation(){
-        List<Rotation> allRotation = commonService.getAllRotation();
+    @GetMapping("/CommonController/findAllRotation/{type}")
+    public JSON findAllRotation(@PathVariable("type") Integer type){
+        List<Rotation> allRotation = commonService.getAllRotation(type);
         return ResultData.getResponseData(allRotation, ResultCode.QUERY_SUCCESS);
 
     }

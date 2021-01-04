@@ -24,21 +24,24 @@ public interface CommonDao {
     @Select("select * from basic")
     Basic findAllBasic();
 
-    @Update("update basic set corporate_name=#{corporate_name},company_url=#{company_url},title=#{title},copyright=#{copyright},record_no=#{record_no} where id=1")
+    @Update("update basic set corporate_name=#{corporate_name},company_url=#{company_url},title=#{title},copyright=#{copyright},record_no=#{record_no},phones=#{phones} where id=2")
     int updateBasic(Basic basic);
 
     @Select("select * from rotation where del=1")
     List<Rotation> findAllRotation();
 
-    @Insert("insert into rotation values(null,#{name},#{url},#{remarks},1)")
+    @Insert("insert into rotation values(null,#{name},#{url},#{remarks},#{type},1)")
     int insertRotation(Rotation rotation);
 
     @Delete("delete from rotation where id=#{id}")
     int ddelRotation(Integer id);
 
-    @Update("update rotation set name=#{name},url=#{url},remarks=#{remarks} where id=#{id}")
+    @Update("update rotation set name=#{name},url=#{url},remarks=#{remarks},type=#{type} where id=#{id}")
     int updateRotation(Rotation rotation);
 
     @Select("select * from rotation where id = #{id}")
     Rotation getRotationById(Integer id);
+
+    @Select("select * from rotation where type=#{type} and del=1 ")
+    List<Rotation> findRotationByType(Integer type);
 }

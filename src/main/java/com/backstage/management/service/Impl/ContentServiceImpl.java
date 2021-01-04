@@ -31,7 +31,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public int insertContent(Content content) {
 
-        int  i = contentDao.insertContent(content);
+        int i = contentDao.insertContent(content);
 
         return i;
     }
@@ -39,7 +39,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public int updateContentSql(Content content) {
 
-        int  i = contentDao.updateContentSql(content);
+        int i = contentDao.updateContentSql(content);
         return i;
     }
 
@@ -50,15 +50,15 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Page<Content> selectAllContent(Integer CurrentPage,Integer all) {
+    public Page<Content> selectAllContent(Integer CurrentPage, Integer all) {
 
         Page<Content> page = new Page<>();
-        if (all==0){
+        if (all == 0) {
             List<Content> Contents = contentDao.selectAllContent();
             page.setDatalist(Contents);
             return page;
         }
-        PageHelper.startPage(CurrentPage,10);
+        PageHelper.startPage(CurrentPage, 10);
         List<Content> Contents = contentDao.selectAllContent();
         PageInfo<Content> info = new PageInfo<>(Contents);
         page.setCurrentnumber(info.getPageNum());
@@ -71,36 +71,57 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Content selectContentById(Integer id) {
-        int i = contentDao.updateContentLiuLan(id);
+
         return contentDao.selectContentById(id);
     }
 
     @Override
-    public List<Content> selectContentByColumnId(Integer column_id) {
+    public Content selectContentByIdUpdateBrowse(Integer id) {
+        int i = contentDao.updateContentLiuLan(id);   // 更新浏览量
+        return contentDao.selectContentById(id);
+    }
 
 
-        //更新内容浏览量
-        //int i = contentDao.updateContentLiuLan(column_id);
-
-        List<Content> contentList = new ArrayList<>();
+    @Override
+    public Page<Content> selectContentByColumnId(Integer column_id, Integer CurrentPage) {
         //查询当前栏目下的所有二级
         List<Column> list = contentDao.selectAllTwo(column_id);
-        if (list.size()>0){
+        List<Content> contentList = new ArrayList<>();
+        if (list.size() > 0) {
+            Page<Content> page = new Page<>();
+            PageHelper.startPage(CurrentPage,10);
             for (Column column : list) {
-               List<Content> contentList1 = contentDao.selectContentByColumnId(column.getId());
-               contentList.addAll(contentList1);
+                List<Content> contentList1 = contentDao.selectContentByColumnId(column.getId());
+                contentList.addAll(contentList1);
             }
-        }else {
+            PageInfo<Content> info = new PageInfo<>(contentList);
+            page.setCurrentnumber(info.getPageNum());
+            page.setCurrentpage(CurrentPage);
+            page.setPagecount(info.getPages());
+            page.setTotalnumber((int) info.getTotal());
+            page.setDatalist(info.getList());
+            return page;
+        } else {
             //查询内容根据栏目ID
-            contentList = contentDao.selectContentByColumnId(column_id);
+            Page<Content> page = new Page<>();
+            PageHelper.startPage(CurrentPage,10);
+            List<Content> contentList2 = contentDao.selectContentByColumnId(column_id);
+            PageInfo<Content> info = new PageInfo<>(contentList2);
+            page.setCurrentnumber(info.getPageNum());
+            page.setCurrentpage(CurrentPage);
+            page.setPagecount(info.getPages());
+            page.setTotalnumber((int) info.getTotal());
+            page.setDatalist(info.getList());
+            return page;
         }
-        return contentList;
+
+
     }
 
     @Override
     public Page<Content> getAllLiuYanSql(Integer CurrentPage) {
         Page<Content> page = new Page<>();
-        PageHelper.startPage(CurrentPage,10);
+        PageHelper.startPage(CurrentPage, 10);
         List<Content> Contents = contentDao.getAllLiuYanSql();
         PageInfo<Content> info = new PageInfo<>(Contents);
         page.setCurrentnumber(info.getPageNum());
@@ -110,5 +131,13 @@ public class ContentServiceImpl implements ContentService {
         page.setDatalist(info.getList());
         return page;
     }
+
+    @Override
+    public List<Content> selectLeaveByIp(String leaveIp) {
+        List<Content> contentList = contentDao.selectLeaveByIp(leaveIp);
+        return contentList;
+    }
+
+
 
 }

@@ -23,6 +23,7 @@ public class Rotation {
     private String name;
     private String url;
     private String remarks;
+    private Integer type;
     private Integer del;
 
 }

@@ -26,7 +26,11 @@ public interface ContentService {
 
     Content selectContentById(Integer id);
 
-    List<Content> selectContentByColumnId(Integer column_id);
+    Page<Content>  selectContentByColumnId(Integer column_id,Integer CurrentPage);
 
     Page<Content> getAllLiuYanSql(Integer CurrentPage);
+
+    List<Content> selectLeaveByIp(String leaveIp);
+
+    Content selectContentByIdUpdateBrowse(Integer id);
 }

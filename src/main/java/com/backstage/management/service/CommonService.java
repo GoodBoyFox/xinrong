@@ -21,7 +21,7 @@ public interface CommonService {
 
     int updateBasic(Basic basic);
 
-    List<Rotation> getAllRotation();
+    List<Rotation> getAllRotation(Integer type);
 
     int insertRotation(Rotation rotation);
 

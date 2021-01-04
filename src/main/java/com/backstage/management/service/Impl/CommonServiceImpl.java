@@ -8,6 +8,7 @@ import com.backstage.management.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,8 +38,14 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<Rotation> getAllRotation() {
-        return commonDao.findAllRotation();
+    public List<Rotation> getAllRotation(Integer type) {
+        List<Rotation> allRotation =new ArrayList<>();
+        if (type==0){
+            allRotation = commonDao.findAllRotation();
+        }else {
+            allRotation = commonDao.findRotationByType(type);
+        }
+        return allRotation;
     }
 
     @Override

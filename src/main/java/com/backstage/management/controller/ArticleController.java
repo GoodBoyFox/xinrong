@@ -27,19 +27,27 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
-
+    /**
+    * 查询所有栏目
+    */
     @GetMapping("/ArticleController/finaAllColumn/{CurrentPage}/{all}")
     public JSON  finaAllColumn(@PathVariable("CurrentPage") Integer CurrentPage,@PathVariable("all") Integer all){
         Page<Column> allColumn = articleService.getAllColumn(CurrentPage,all);
         return ResultData.getResponseData(allColumn, ResultCode.QUERY_SUCCESS);
     }
 
+    /**
+     * 根据ID查询栏目
+     */
     @GetMapping("/ArticleController/findColumnBuId/{id}")
     public JSON  findColumnBuId(@PathVariable("id") Integer id){
         Column columnBuId = articleService.getColumnBuId(id);
         return ResultData.getResponseData(columnBuId, ResultCode.QUERY_SUCCESS);
     }
 
+    /**
+     * 更新栏目
+     */
     @RequestMapping(value = "/ArticleController/updateColumn",method = RequestMethod.POST)
     public JSON  updateColumn(@RequestBody Column column){
         int i = articleService.updateColumn(column);
@@ -49,7 +57,9 @@ public class ArticleController {
             return ResultData.getResponseData("修改失败", ResultCode.UPDATE_ERROR);
         }
     }
-
+    /**
+     * 新增栏目
+     */
     @RequestMapping(value = "/ArticleController/insertColumn",method = RequestMethod.POST)
     public JSON insertColumn(@RequestBody Column column){
         int i = articleService.insertColumn(column);
@@ -59,7 +69,9 @@ public class ArticleController {
             return ResultData.getResponseData(null, ResultCode.INSERT_ERROR);
         }
     }
-
+    /**
+     * 删除栏目
+     */
     @GetMapping("/ArticleController/deleteColumn/{id}")
     public JSON deleteColumn(@PathVariable("id") Integer id){
         System.out.println("id》》》》"+id);
@@ -82,7 +94,7 @@ public class ArticleController {
 
 
     /**
-     * 查询所有一级栏目
+     * 查询栏目
      */
     @GetMapping("/ArticleController/findXiaoAllColumn")
     public JSON  findXiaoAllColumn(){
@@ -90,6 +102,16 @@ public class ArticleController {
         return ResultData.getResponseData(columnBuId, ResultCode.QUERY_SUCCESS);
     }
 
-
-
+    
+    /** 
+    * @FunctionName: 查询一级栏目下的所有二级
+    * @author: Ywj
+    * @Param: 
+    * @Return: 
+    */
+    @GetMapping("/ArticleController/findSecondColumnByOne/{columnOne}")
+    public JSON  findXiaoAllColumn(@PathVariable("columnOne") Integer columnOne){
+        List<Column> columnBuId = articleService.selectSecondColumnByOne(columnOne);
+        return ResultData.getResponseData(columnBuId, ResultCode.QUERY_SUCCESS);
+    }
 }

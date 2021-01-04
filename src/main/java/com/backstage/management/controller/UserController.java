@@ -30,7 +30,7 @@ public class UserController {
     /**
      * 用户登录校验
      */
-    @RequestMapping("/userLogin")
+    @RequestMapping(value = "/userLogin",method = RequestMethod.POST)
     public JSON getHello(@RequestParam("user_name") String user_name, @RequestParam("user_pwd") String user_pwd){
 
         boolean b =  userService.userLogin(user_name,user_pwd);
@@ -81,7 +81,7 @@ public class UserController {
     /**
     * 更新用户
      */
-    @PostMapping(value = "/updateUser")
+    @PostMapping("/updateUser")
     public JSON updateUser(@ModelAttribute User user){
         System.out.println("user》》"+user);
         int i = userService.updateUserSql(user);
