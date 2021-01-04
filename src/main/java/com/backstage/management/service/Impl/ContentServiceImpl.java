@@ -114,8 +114,6 @@ public class ContentServiceImpl implements ContentService {
             page.setDatalist(info.getList());
             return page;
         }
-
-
     }
 
     @Override
@@ -137,6 +135,7 @@ public class ContentServiceImpl implements ContentService {
         List<Content> contentList = contentDao.selectLeaveByIp(leaveIp);
         return contentList;
     }
+
 
 
 

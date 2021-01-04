@@ -37,4 +37,6 @@ public interface ContentDao {
     List<Column> selectAllTwo(Integer column_id);
 
     List<Content> selectLeaveByIp(String leaveIp);
+
+    List<Column> selectAllOne(Integer columnOne);
 }

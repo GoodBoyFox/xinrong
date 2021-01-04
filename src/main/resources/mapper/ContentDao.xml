@@ -72,7 +72,7 @@
 
     <!--根据栏目查找相应内容-->
     <select id="selectContentByColumnId" parameterType="Integer" resultType="com.backstage.management.entity.Content">
-         select co.*,col.c_name,col.type from content as co,`column` as col where  co.column_id = col.id and co.del = 1 and column_id = #{column_id}
+         select co.*,col.c_name,col.type from content as co,`column` as col where  co.column_id = col.id and co.del = 1 and column_id = #{column_id} ORDER  BY co.id DESC
     </select>
 
     <!--更新内容-->
@@ -88,6 +88,11 @@
     <!--查询二级-->
     <select id="selectAllTwo" parameterType="Integer" resultType="com.backstage.management.entity.Column">
         select * from `column` where fid = #{column_id}
+    </select>
+
+    <!--查询二级-->
+    <select id="selectAllOne" parameterType="Integer" resultType="com.backstage.management.entity.Column">
+        select * from `column` where id = #{column_id}
     </select>
 
     <!--根据IP查询留言-->

@@ -113,7 +113,10 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Column> selectSecondColumnByOne(Integer columnOne) {
         //查询当前栏目下的所有二级
         List<Column> list = contentDao.selectAllTwo(columnOne);
-
+        if(list.size()==0){
+            //查询一级
+            list = contentDao.selectAllOne(columnOne);
+        }
         return list;
     }
 }
