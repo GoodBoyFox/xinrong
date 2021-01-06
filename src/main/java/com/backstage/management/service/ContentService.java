@@ -5,6 +5,7 @@ import com.backstage.management.entity.Content;
 import com.backstage.management.util.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: app
@@ -28,7 +29,7 @@ public interface ContentService {
 
     Page<Content>  selectContentByColumnId(Integer column_id,Integer CurrentPage);
 
-    Page<Content> getAllLiuYanSql(Integer CurrentPage);
+    Map<String,List<Content>> getAllLiuYanSql();
 
     List<Content> selectLeaveByIp(String leaveIp);
 

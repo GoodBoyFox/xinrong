@@ -11,8 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ProjectName: app
@@ -117,17 +116,28 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Page<Content> getAllLiuYanSql(Integer CurrentPage) {
-        Page<Content> page = new Page<>();
-        PageHelper.startPage(CurrentPage, 10);
-        List<Content> Contents = contentDao.getAllLiuYanSql();
-        PageInfo<Content> info = new PageInfo<>(Contents);
-        page.setCurrentnumber(info.getPageNum());
-        page.setCurrentpage(CurrentPage);
-        page.setPagecount(info.getPages());
-        page.setTotalnumber((int) info.getTotal());
-        page.setDatalist(info.getList());
-        return page;
+    public Map<String,List<Content>> getAllLiuYanSql() {
+        //Page<Content> page = new Page<>();
+        //PageHelper.startPage(CurrentPage, 10);
+        List<Content> contents = contentDao.getAllLiuYanSql();
+        List<String> list = new ArrayList<>();
+        for (Content content : contents) {
+            list.add(content.getLeave_ip());
+        }
+        Map<String,List<Content>> map = new HashMap<>();
+        for (String s : list) {
+            List<Content> list2 = new ArrayList<>();
+            for (Content content : contents) {
+                if (s.equals(content.getLeave_ip())){
+                    list2.add(content);
+                    Collections.reverse(list2);
+                    map.put(content.getLeave_ip(),list2);
+                }
+            }
+        }
+        System.out.println(map);
+
+        return map;
     }
 
     @Override

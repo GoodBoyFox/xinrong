@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: app
@@ -135,10 +136,10 @@ public class ContentController {
     *  查询留言列表
     */
     @RequestMapping(value = "/getAllLiuYan",method = RequestMethod.GET)
-    public JSON getAllLiuYan(@RequestParam("CurrentPage") Integer CurrentPage){
-        Page<Content> contentList = contentService.getAllLiuYanSql(CurrentPage);
-        if (contentList!=null){
-            return ResultData.getResponseData(contentList,ResultCode.QUERY_SUCCESS);
+    public JSON getAllLiuYan(){
+        Map<String,List<Content>> map = contentService.getAllLiuYanSql();
+        if (map!=null){
+            return ResultData.getResponseData(map,ResultCode.QUERY_SUCCESS);
         }
         return ResultData.getResponseData(null,ResultCode.QUERY_ERROR);
     }
@@ -151,12 +152,15 @@ public class ContentController {
     */
     @RequestMapping(value = "/leaveSession",method = RequestMethod.POST)
     public JSON leaveSession(@RequestBody Content content){
+        System.out.println("content>>>"+content);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        content.setReleasedate(sdf.format(new Date()));
         //新增到数据库
         int i =  contentService.insertContent(content);
         if (i>0){
-            return ResultData.getResponseData("留言成功",ResultCode.QUERY_ERROR);
+            return ResultData.getResponseData("留言成功",ResultCode.INSERT_SUCCESS);
         }
-        return ResultData.getResponseData("留言失败",ResultCode.QUERY_ERROR);
+        return ResultData.getResponseData("留言失败",ResultCode.INSERT_ERROR);
     }
 
     @GetMapping(value = "/getLeaveByIp/{leaveIp}")
