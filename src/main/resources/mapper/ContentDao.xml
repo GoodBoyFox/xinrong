@@ -87,12 +87,12 @@
 
     <!--查询二级-->
     <select id="selectAllTwo" parameterType="Integer" resultType="com.backstage.management.entity.Column">
-        select * from `column` where fid = #{column_id}
+        select * from `column` where fid = #{column_id} and del =1
     </select>
 
     <!--查询二级-->
     <select id="selectAllOne" parameterType="Integer" resultType="com.backstage.management.entity.Column">
-        select * from `column` where id = #{column_id}
+        select * from `column` where id = #{column_id} and del =1
     </select>
 
     <!--根据IP查询留言-->
