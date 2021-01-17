@@ -80,6 +80,24 @@ public class ContentServiceImpl implements ContentService {
         return contentDao.selectContentById(id);
     }
 
+    @Override
+    public Map<String, Integer> getContentNum() {
+
+        Map<String, Integer> map = new HashMap<>();
+
+        //查询文章总数
+        Integer  articleNum =  contentDao.selectArticleNum();
+        //查询总的浏览量
+        Integer  browseNum =  contentDao.selectBrowseNum();
+        //查询留言总数
+        Integer  leaveNum =  contentDao.selectLeaveNum();
+
+        map.put("articleNum",articleNum);
+        map.put("browseNum",browseNum);
+        map.put("leaveNum",leaveNum);
+        return map;
+    }
+
 
     @Override
     public Page<Content> selectContentByColumnId(Integer column_id, Integer CurrentPage) {

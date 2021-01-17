@@ -99,4 +99,17 @@
     <select id="selectLeaveByIp" parameterType="String" resultType="com.backstage.management.entity.Content">
         select * from content where leave_ip=#{leaveIp}
     </select>
+
+    <!--查询文章总数-->
+    <select id="selectArticleNum" resultType="Integer">
+        SELECT COUNT(*) as num from content WHERE del =1 and  ISNULL(atlas)
+    </select>
+    <!--查询留言总数-->
+    <select id="selectLeaveNum" resultType="Integer">
+        SELECT COUNT(*) as num FROM content WHERE atlas is not null and del =1 and ISNULL(`name`)
+    </select>
+    <!--查询浏览量总数-->
+    <select id="selectBrowseNum" resultType="Integer">
+        SELECT sum(num) as num from content WHERE del =1
+    </select>
 </mapper>

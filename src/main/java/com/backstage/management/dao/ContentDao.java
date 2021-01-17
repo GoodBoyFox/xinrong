@@ -39,4 +39,10 @@ public interface ContentDao {
     List<Content> selectLeaveByIp(String leaveIp);
 
     List<Column> selectAllOne(Integer columnOne);
+
+    Integer selectArticleNum();
+
+    Integer selectBrowseNum();
+
+    Integer selectLeaveNum();
 }

@@ -34,4 +34,6 @@ public interface ContentService {
     List<Content> selectLeaveByIp(String leaveIp);
 
     Content selectContentByIdUpdateBrowse(Integer id);
+
+    Map<String, Integer> getContentNum();
 }

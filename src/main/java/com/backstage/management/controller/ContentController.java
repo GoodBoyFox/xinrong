@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ProjectName: app
@@ -181,6 +179,7 @@ public class ContentController {
     */
     @GetMapping(value = "/getIp")
     public JSON getIp(){
+
         String intranetIp = IPUtil.getIntranetIp();
         try {
             String hostAddress = InetAddress.getLocalHost().getHostAddress();
@@ -196,4 +195,20 @@ public class ContentController {
     }
 
 
+    /** 
+    * @FunctionName: 获取文章总数 总浏览量 总得留言数
+    * @author: Ywj
+    * @Param: 
+    * @Return: 
+    */
+    @RequestMapping(value = "/getContentNum")
+    public JSON getContentNum(){
+
+        Map<String,Integer> map = contentService.getContentNum();
+
+        if (map!=null){
+            return ResultData.getResponseData(map,ResultCode.QUERY_SUCCESS);
+        }
+        return ResultData.getResponseData("获取IP失败",ResultCode.QUERY_ERROR);
+    }
 }
