@@ -2,8 +2,7 @@ package com.backstage.management.service.Impl;
 
 
 import com.backstage.management.dao.ContentDao;
-import com.backstage.management.entity.Column;
-import com.backstage.management.entity.Content;
+import com.backstage.management.entity.*;
 import com.backstage.management.service.ContentService;
 import com.backstage.management.util.Page;
 import com.github.pagehelper.PageHelper;
@@ -11,7 +10,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.SimpleFormatter;
 
 /**
  * @ProjectName: app
@@ -96,6 +97,136 @@ public class ContentServiceImpl implements ContentService {
         map.put("browseNum",browseNum);
         map.put("leaveNum",leaveNum);
         return map;
+    }
+
+    @Override
+    public int insertInvest(Invest invest) {
+        System.out.println("invest》》》》"+invest);
+        if (invest.getThree_level_name()!=null){
+            System.out.println("》》》》");
+            //新增三级标题
+            ThreeTitle threeTitle = new ThreeTitle();
+            threeTitle.setFid(invest.getFid());
+            threeTitle.setThree_name(invest.getThree_level_name());
+            int  i =contentDao.insertThreeTitle(threeTitle);
+            invest.setThree_id(threeTitle.getId());
+        }
+        //新增投资指南内容
+        int i = contentDao.insertInvestInfo(invest);
+        return i;
+    }
+
+    @Override
+    public List<ThreeTitle> selectInvest() {
+
+        //根据父id查询 内容
+        List<ThreeTitle> threeTitles = contentDao.selectAllThreeTitle();
+        //查询所有内容
+        List<Invest> investList =  contentDao.selectAllInvest();
+
+        for (ThreeTitle threeTitle : threeTitles) {
+            List<Invest> invests = new ArrayList<>();
+            for (Invest invest : investList) {
+                if (threeTitle.getId().equals(invest.getThree_id())){
+                    SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+                    invest.setCreation_time_str(sim.format(invest.getCreation_time()));
+                    invests.add(invest);
+                }
+            }
+            threeTitle.setInvestList(invests);
+        }
+        return threeTitles;
+    }
+
+    @Override
+    public List<ThreeTitle> selectThreeTitle() {
+        //根据父id查询 内容
+        List<ThreeTitle> threeTitles = contentDao.selectAllThreeTitle();
+        return threeTitles;
+    }
+
+    @Override
+    public int updateInvestInfoSql(Invest invest) {
+        //更新指南内容
+        invest.setCreation_time(new Date());
+        int i =  contentDao.updateInvestInfoSql(invest);
+        return i;
+    }
+
+    @Override
+    public int deleteInvestInfoSql(Integer id) {
+        int i = contentDao.deleteInvestInfoSql(id);
+        return i;
+    }
+
+    @Override
+    public int updateThreeTitle(ThreeTitle threeTitle) {
+
+        int i = contentDao.updateThreeTitle(threeTitle);
+
+        return i;
+    }
+
+    @Override
+    public int deleteThreeTitleSql(Integer id) {
+        int i = contentDao.deleteThreeTitleSql(id);
+
+        return i;
+    }
+
+    @Override
+    public int insertAdministrative(Administrative administrative) {
+        int i = contentDao.insertAdministrativeSql(administrative);
+        return i;
+    }
+
+    @Override
+    public int updateAdministrativeSql(Administrative administrative) {
+        int i =  contentDao.updateAdministrativeSql(administrative);
+        return i;
+    }
+
+    @Override
+    public int deleteAdministrativeSql(Integer id) {
+        int i = contentDao.deleteAdministrativeSql(id);
+        return i;
+    }
+
+    @Override
+    public Page<Administrative> selectAllAdministrative(Integer currentPage) {
+
+        Page<Administrative> page = new Page<>();
+        PageHelper.startPage(currentPage, 10);
+        List<Administrative> administrative = contentDao.selectAllAdministrative();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (Administrative administrative1 : administrative) {
+            administrative1.setCreate_time_str(formatter.format(administrative1.getCreate_time()));
+        }
+        PageInfo<Administrative> info = new PageInfo<>(administrative);
+        page.setCurrentnumber(info.getPageNum());
+        page.setCurrentpage(currentPage);
+        page.setPagecount(info.getPages());
+        page.setTotalnumber((int) info.getTotal());
+        page.setDatalist(info.getList());
+        return page;
+    }
+
+    @Override
+    public List<Administrative> selectAdministrativeById(Integer id, Integer column_id) {
+        List<Administrative> administrativelist = new ArrayList<>();
+        if (id==0){
+            //根据栏目查询
+            administrativelist = contentDao.selectAdministrativeByCid(column_id);
+        }else{
+            //
+            administrativelist =  contentDao.selectAdministrativeById(id);
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (Administrative administrative1 : administrativelist) {
+            administrative1.setCreate_time_str(formatter.format(administrative1.getCreate_time()));
+        }
+
+        return administrativelist;
     }
 
 

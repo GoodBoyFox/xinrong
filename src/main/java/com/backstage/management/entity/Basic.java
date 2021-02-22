@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @ProjectName: Zhixiang
  * @Package: com.doctor.app.entity
@@ -26,4 +28,6 @@ public class Basic {
     private String copyright;
     private String record_no;
     private String phones;
+    private Integer del;
+    private List<Basic> basicList;
 }

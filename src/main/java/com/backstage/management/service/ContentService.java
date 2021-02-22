@@ -1,7 +1,10 @@
 package com.backstage.management.service;
 
 
+import com.backstage.management.entity.Administrative;
 import com.backstage.management.entity.Content;
+import com.backstage.management.entity.Invest;
+import com.backstage.management.entity.ThreeTitle;
 import com.backstage.management.util.Page;
 
 import java.util.List;
@@ -36,4 +39,28 @@ public interface ContentService {
     Content selectContentByIdUpdateBrowse(Integer id);
 
     Map<String, Integer> getContentNum();
+
+    int insertInvest(Invest invest);
+
+    List<ThreeTitle> selectInvest();
+
+    List<ThreeTitle> selectThreeTitle();
+
+    int updateInvestInfoSql(Invest invest);
+
+    int deleteInvestInfoSql(Integer id);
+
+    int updateThreeTitle(ThreeTitle threeTitle);
+
+    int deleteThreeTitleSql(Integer id);
+
+    int insertAdministrative(Administrative administrative);
+
+    int updateAdministrativeSql(Administrative administrative);
+
+    int deleteAdministrativeSql(Integer id);
+
+    Page<Administrative> selectAllAdministrative(Integer currentPage);
+
+    List<Administrative> selectAdministrativeById(Integer id, Integer column_id);
 }

@@ -112,4 +112,61 @@
     <select id="selectBrowseNum" resultType="Integer">
         SELECT sum(num) as num from content WHERE del =1
     </select>
+    <!-- 新增三级标题 -->
+    <insert id="insertThreeTitle" useGeneratedKeys="true" keyProperty="id" parameterType="com.backstage.management.entity.ThreeTitle">
+        insert into three_title(fid,three_name,del) values (#{fid},#{three_name},1)
+    </insert>
+    <!-- 新增三级内容 -->
+    <insert id="insertInvestInfo" parameterType="com.backstage.management.entity.Invest">
+        insert into invest(fid,three_id,headline,creation_time,del) values (#{fid},#{three_id},#{headline},#{creation_time},1)
+    </insert>
+    <!--查询所有的三级标题-->
+    <select id="selectAllThreeTitle" resultType="com.backstage.management.entity.ThreeTitle">
+        select * from three_title where del =1
+    </select>
+    <!--查询所有内容-->
+    <select id="selectAllInvest" resultType="com.backstage.management.entity.Invest">
+        select * from invest
+    </select>
+    <!--更新三级内容-->
+    <update id="updateInvestInfoSql" parameterType="com.backstage.management.entity.Invest">
+        update invest set fid = #{fid},three_id = #{three_id},headline=#{headline},creation_time = #{creation_time} where id= #{id} and del =1
+    </update>
+    <!--删除三级内容-->
+    <delete id="deleteInvestInfoSql" parameterType="Integer">
+        delete from invest where id = #{id}
+    </delete>
+    <!-- 更新三级标题 -->
+    <update id="updateThreeTitle" parameterType="threeTitle">
+        update three_title set fid =#{fid},three_name=#{three_name} where id = #{id} and del =1
+    </update>
+    <!-- 删除三级标题 -->
+    <update id="deleteThreeTitleSql" parameterType="Integer">
+        update three_title set del = 2 where id = #{id}
+    </update>
+
+    <!--新增行政内容-->
+    <insert id="insertAdministrativeSql" parameterType="com.backstage.management.entity.Administrative">
+        insert into administrative(column_id,headline,create_time,pic_url,url,del) values (#{column_id},#{headline},#{create_time},#{pic_url},#{url},1)
+    </insert>
+    <!-- 更新行政内容-->
+    <update id="updateAdministrativeSql" parameterType="com.backstage.management.entity.Administrative">
+        update administrative set column_id=#{column_id},headline=#{headline},create_time=#{create_time},pic_url=#{pic_url},url=#{url} where  id = #{id} and del =1
+    </update>
+    <!--删除行政内容-->
+    <update id="deleteAdministrativeSql" parameterType="Integer">
+        update administrative set del = 2 where id =#{id}
+    </update>
+    <!-- 查询全部行政内容 -->
+    <select id="selectAllAdministrative" resultType="com.backstage.management.entity.Administrative">
+        select * from administrative where  del =1
+    </select>
+    <!--根据栏目查询行政内容-->
+    <select id="selectAdministrativeByCid" parameterType="Integer" resultType="com.backstage.management.entity.Administrative">
+      select * from administrative where  del =1 and column_id = #{column_id}
+    </select>
+    <!--根据id查询行政内容-->
+    <select id="selectAdministrativeById" parameterType="Integer" resultType="com.backstage.management.entity.Administrative">
+      select * from administrative where  del =1 and id = #{id}
+    </select>
 </mapper>

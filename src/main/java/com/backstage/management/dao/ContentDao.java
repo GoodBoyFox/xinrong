@@ -1,9 +1,9 @@
 package com.backstage.management.dao;
 
 
-import com.backstage.management.entity.Column;
-import com.backstage.management.entity.Content;
+import com.backstage.management.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -45,4 +45,32 @@ public interface ContentDao {
     Integer selectBrowseNum();
 
     Integer selectLeaveNum();
+
+    int insertThreeTitle(ThreeTitle threeTitle);
+
+    int insertInvestInfo(Invest invest);
+
+    List<ThreeTitle> selectAllThreeTitle();
+
+    List<Invest> selectAllInvest();
+
+    int updateInvestInfoSql(Invest invest);
+
+    int deleteInvestInfoSql(Integer id);
+
+    int updateThreeTitle(ThreeTitle threeTitle);
+
+    int deleteThreeTitleSql(Integer id);
+
+    int insertAdministrativeSql(Administrative administrative);
+
+    int updateAdministrativeSql(Administrative administrative);
+
+    int deleteAdministrativeSql(Integer id);
+
+    List<Administrative> selectAllAdministrative();
+
+    List<Administrative> selectAdministrativeByCid(Integer column_id);
+
+    List<Administrative> selectAdministrativeById(Integer id);
 }

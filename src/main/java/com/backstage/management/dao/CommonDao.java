@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public interface CommonDao {
 
-    @Select("select * from basic")
+    @Select("select * from basic where id =2")
     Basic findAllBasic();
 
     @Update("update basic set corporate_name=#{corporate_name},company_url=#{company_url},title=#{title},copyright=#{copyright},record_no=#{record_no},phones=#{phones} where id=2")
@@ -44,4 +44,16 @@ public interface CommonDao {
 
     @Select("select * from rotation where type=#{type} and del=1 ")
     List<Rotation> findRotationByType(Integer type);
+
+    @Delete("delete from basic where id = #{id}")
+    int deleteBasicById(Integer id);
+
+    @Insert("insert into basic values(null,#{corporate_name},#{company_url},#{title},#{copyright},#{record_no},#{phones},1)")
+    int insertBasic(Basic basic1);
+
+    @Update("update basic set corporate_name=#{corporate_name},company_url=#{company_url},title=#{title},copyright=#{copyright},record_no=#{record_no},phones=#{phones} where id=#{id}")
+    int updateBasic2(Basic basic1);
+
+    @Select("select id,corporate_name,company_url,del from basic where id !=2")
+    List<Basic> findAllBasicList();
 }
