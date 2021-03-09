@@ -64,6 +64,9 @@
           <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.5" />
           <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:5.1.4" />
           <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:1.0" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-websocket:2.3.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:5.2.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-websocket:5.2.10.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

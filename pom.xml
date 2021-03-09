@@ -11,6 +11,7 @@
     <groupId>com.backstage</groupId>
     <artifactId>management</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <!--<packaging>war</packaging>-->
     <name>management</name>
     <description>Demo project for Spring Boot</description>
 
@@ -131,5 +132,6 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>xinrong</finalName>
     </build>
 </project>
