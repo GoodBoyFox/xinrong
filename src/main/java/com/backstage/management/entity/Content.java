@@ -28,7 +28,7 @@ public class Content {
     private String level; //级别  级别  全国 省  市
     private String views;  //图片集url
     private String releasedate;  //发布时间
-    private String num;  //浏览量
+    private Integer num;  //浏览量
     private String abbreviation_url;  //缩略图
     private String details;  //内容详情
     private String atlas; // 留言内容

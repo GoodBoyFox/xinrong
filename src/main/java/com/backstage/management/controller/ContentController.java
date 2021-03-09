@@ -6,7 +6,6 @@ import com.backstage.management.entity.Content;
 import com.backstage.management.entity.Invest;
 import com.backstage.management.entity.ThreeTitle;
 import com.backstage.management.service.ContentService;
-import com.backstage.management.util.IPUtil;
 import com.backstage.management.util.Page;
 import com.backstage.management.util.ResultCode;
 import com.backstage.management.util.ResultData;
@@ -15,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -159,6 +157,7 @@ public class ContentController {
         System.out.println("content>>>"+content);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         content.setReleasedate(sdf.format(new Date()));
+        content.setNum(1);  //未读
         //新增到数据库
         int i =  contentService.insertContent(content);
         if (i>0){
@@ -327,7 +326,6 @@ public class ContentController {
             return ResultData.getResponseData(i,ResultCode.UPDATE_SUCCESS);
         }
         return ResultData.getResponseData(null,ResultCode.UPDATE_ERROR);
-
     }
 
     /** 
