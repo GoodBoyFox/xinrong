@@ -147,6 +147,18 @@ public class ContentController {
     }
 
     /**
+     *  变更已读
+     */
+    @RequestMapping(value = "/updateLiuYanRead",method = RequestMethod.GET)
+    public JSON updateLiuYanRead(@RequestParam("leave_ip") String leave_ip){
+        int  i = contentService.updateLiuYanReadSql(leave_ip);
+        if (i>0){
+            return ResultData.getResponseData(i,ResultCode.UPDATE_SUCCESS);
+        }
+        return ResultData.getResponseData(i,ResultCode.UPDATE_ERROR);
+    }
+
+    /**
     * @FunctionName:
     * @author: Ywj
     * @Param: 留言功能

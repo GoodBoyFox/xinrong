@@ -229,6 +229,14 @@ public class ContentServiceImpl implements ContentService {
         return administrativelist;
     }
 
+    @Override
+    public int updateLiuYanReadSql(String leave_ip) {
+
+        int i =contentDao.updateLiuYanReadSql(leave_ip);
+
+        return i;
+    }
+
 
     @Override
     public Page<Content> selectContentByColumnId(Integer column_id, Integer CurrentPage) {
@@ -276,8 +284,10 @@ public class ContentServiceImpl implements ContentService {
         Map<String,List<Content>> map = new HashMap<>();
         for (String s : list) {
             List<Content> list2 = new ArrayList<>();
+            Integer unread= contentDao.getLiuYanNum(s);
             for (Content content : contents) {
                 if (s.equals(content.getLeave_ip())){
+                    content.setUnread_num(unread);
                     list2.add(content);
                     Collections.reverse(list2);
                     map.put(content.getLeave_ip(),list2);
@@ -285,7 +295,6 @@ public class ContentServiceImpl implements ContentService {
             }
         }
         System.out.println(map);
-
         return map;
     }
 

@@ -73,4 +73,8 @@ public interface ContentDao {
     List<Administrative> selectAdministrativeByCid(Integer column_id);
 
     List<Administrative> selectAdministrativeById(Integer id);
+
+    int updateLiuYanReadSql(String leave_ip);
+
+    Integer getLiuYanNum(String s);
 }

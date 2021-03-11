@@ -63,4 +63,6 @@ public interface ContentService {
     Page<Administrative> selectAllAdministrative(Integer currentPage);
 
     List<Administrative> selectAdministrativeById(Integer id, Integer column_id);
+
+    int updateLiuYanReadSql(String leave_ip);
 }

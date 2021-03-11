@@ -5,7 +5,7 @@
     <!--插入内容-->
     <insert id="insertContent" parameterType="com.backstage.management.entity.Content">
             insert into content(title,title_sencond,column_id,`column_name`,`level`,views,releasedate,num,abbreviation_url,details,atlas,`name`,phone,leave_ip,del)
-            values (#{title},#{title_sencond},#{column_id},#{column_name},#{level},#{views},#{releasedate},0,#{abbreviation_url},#{details},#{atlas},#{name},#{phone},#{leave_ip},1)
+            values (#{title},#{title_sencond},#{column_id},#{column_name},#{level},#{views},#{releasedate},#{num},#{abbreviation_url},#{details},#{atlas},#{name},#{phone},#{leave_ip},1)
     </insert>
 
     <!--更新内容-->
@@ -169,4 +169,13 @@
     <select id="selectAdministrativeById" parameterType="Integer" resultType="com.backstage.management.entity.Administrative">
       select * from administrative where  del =1 and id = #{id}
     </select>
+    <!-- 变更留言为已读 -->
+    <update id="updateLiuYanReadSql" parameterType="String">
+        update content set num = 2 where leave_ip = #{leave_ip}
+    </update>
+    <!-- 查询未读留言数 -->
+    <select id="getLiuYanNum" parameterType="String" resultType="Integer">
+        select COUNT(*) as num from content where `name` is null  and num =1 and leave_ip = #{s}
+    </select>
+
 </mapper>

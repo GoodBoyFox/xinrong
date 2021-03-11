@@ -37,4 +37,6 @@ public class Content {
     private Integer del;  //删除
     private String leave_ip; //留言人公网IP
     private Integer type;  //类型  留言  文章  单页
+
+    private Integer unread_num;  //当前IP下的未读数
 }
